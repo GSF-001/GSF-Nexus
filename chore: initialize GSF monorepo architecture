@@ -1,0 +1,366 @@
+⚙️ Integrasi Otomatis ke Apps GSF (Monorepo Layered System)
+
+Struktur final:
+
+gsf-web/
+├── backend/
+│   ├── models/
+│   │   ├── User.js
+│   │   ├── Wallet.js
+│   │   ├── Event.js
+│   │   ├── EventFeedback.js
+│   │   ├── University.js
+│   │   ├── Student.js
+│   │   ├── StudentProject.js
+│   │   ├── ProjectFunding.js
+│   │   └── ProjectRewardHistory.js
+│   ├── routes/
+│   │   ├── investor.js
+│   │   ├── vault.js
+│   │   ├── events/
+│   │   │   └── feedback.js
+│   │   ├── university.js
+│   │   └── studentProject.js
+│   ├── controllers/
+│   │   ├── eventFeedbackController.js
+│   │   ├── studentProjectController.js
+│   │   └── universityController.js
+│   ├── services/
+│   │   ├── feedbackRewardService.js
+│   │   ├── projectRewardService.js
+│   │   └── vaultService.js
+│   ├── jobs/
+│   │   ├── billingCron.js
+│   │   ├── commissionPayout.js
+│   │   ├── snapshotJob.js
+│   │   ├── votingCron.js
+│   │   └── eventRewardJob.js   ← (new: auto reward top contributor)
+│   ├── middleware/
+│   │   └── auth.js
+│   └── server.js
+│
+├── frontend/
+│   ├── pages/
+│   │   ├── index.jsx
+│   │   ├── events/
+│   │   │   └── [id].jsx
+│   │   ├── university/
+│   │   │   └── [id].jsx
+│   │   └── vip/
+│   │       └── dashboard.jsx
+│   ├── components/
+│   │   ├── EventFeedbackPopup.jsx
+│   │   ├── StudentProjectCard.jsx
+│   │   └── UniversityRoom.jsx
+│   ├── hooks/
+│   │   └── useSocket.js
+│   └── styles/
+│       └── tailwind.config.js
+│
+├── docker/
+│   └── docker-compose.yml
+└── README.md
+
+
+
+
+🧩 Integrasi Teknis Antarsistem
+
+
+
+
+Modul
+
+Integrasi ke
+
+Mekanisme
+
+
+
+
+
+
+
+Event Feedback
+
+Socket + RewardService
+
+Emit feedback_submitted → RewardService hitung poin
+
+
+
+
+University / Student Project
+
+Vault + Investor Module
+
+Saat ready-vip, jalankan allocateFunding() → create VaultEvent
+
+
+
+
+Vault & Ledger (E)
+
+Semua funding / reward
+
+Semua transaksi → ledgerService.commitBlock()
+
+
+
+
+AI Alert Layer (H)
+
+Event Reward & Student Funding
+
+AI bot monitor: funding abuse / anomaly / spam feedback
+
+
+
+
+Subscription & IB (F)
+
+Student & University Tier
+
+Mahasiswa/universitas dapat akses premium jika aktif membership
+
+
+
+
+Governance (G)
+
+VIP Projects
+
+Proposal Rivest dapat dibuat oleh universitas / mentor terverifikasi
+
+
+
+
+
+
+
+
+
+💎 API Gateway Link Map
+
+Semua endpoint dari sistem baru udah sinkron ke gateway /api/*:
+
+/api/investor/*
+/api/vault/*
+/api/events/feedback/*
+/api/university/*
+/api/student-project/*
+
+
+Authorization layer:
+
+
+requireAuth() → member umum
+
+requireRole(['admin','finance']) → funding + vault
+
+requireRole(['mentor','vip']) → verifikasi proyek mahasiswa
+
+
+
+
+
+💠 Cron Jobs Integration
+
+Tambahkan di jobs/index.js:
+
+import './billingCron.js';
+import './commissionPayout.js';
+import './snapshotJob.js';
+import './votingCron.js';
+import './eventRewardJob.js'; // auto reward event feedback top contributor
+
+
+eventRewardJob.js (baru):
+
+import { Event, EventFeedback, EventRewardHistory } from "../models/index.js";
+import { Op } from "sequelize";
+
+export const eventRewardJob = async () => {
+  const finishedEvents = await Event.findAll({ where: { status: "finished" } });
+  for (const ev of finishedEvents) {
+    const feedbacks = await EventFeedback.findAll({
+      where: { eventId: ev.id },
+      order: [["createdAt", "ASC"]],
+    });
+    if (!feedbacks.length) continue;
+
+    const top = feedbacks.reduce((a, b) =>
+      a.feedbackText.length > b.feedbackText.length ? a : b
+    );
+    await EventRewardHistory.create({
+      userId: top.userId,
+      eventId: ev.id,
+      rewardType: "badge",
+      rewardMeta: { name: "Top Feedback", points: 50 },
+    });
+  }
+};
+
+
+
+
+🎓 Bonus — Hubungan Sistem Education & Finance
+
+Diagram singkat (layer koneksi utama):
+
+UniversityRoom → StudentProject
+     │                │
+     ▼                ▼
+   VaultManager ← InvestorDeposit
+     │                │
+     ▼                ▼
+  LedgerBlocks     RivestVoting
+
+
+Alurnya:
+
+
+Mahasiswa submit proyek → sistem hitung potentialScore
+
+Jika lolos 70% → status = ready-vip
+
+allocateFunding() → buat record di Vault & Ledger
+
+Investor dapat notifikasi via /api/investor/project/allocate
+
+Jika proyek sukses → otomatis buat Reward & reputasi di profile mahasiswa
+
+
+
+
+
+🚀 Ready-to-Run Steps (after colok folder ke repo lo)
+
+cd gsf-web
+docker-compose up --build
+
+
+Seed DB:
+
+npx sequelize db:migrate
+npx sequelize db:seed:all
+
+
+Run cron & server:
+
+npm run dev
+npm run cron:eventReward
+
+
+Frontend aktif di:
+http://localhost:3000
+________________
+🧩 GSF Birthday System — Blueprint JSON
+
+{
+  "system": "GSF-BDAY-SYSTEM",
+  "version": "v1.0.0",
+  "modules": [
+    {
+      "name": "Birthday Trigger",
+      "code": "GSF-BDAY-CORE",
+      "description": "Event otomatis berdasarkan tanggal lahir user dari KYC data.",
+      "logic": {
+        "trigger": "if user.birthdate == today",
+        "actions": [
+          "run BirthdayEngine",
+          "create GiftData",
+          "send Notification",
+          "update RewardLog"
+        ]
+      }
+    },
+    {
+      "name": "Birthday Engine",
+      "description": "Menentukan hadiah ulang tahun berdasarkan sistem rarity.",
+      "raritySystem": {
+        "Common": { "chance": 70, "reward": "NFT Basic / Skin Normal" },
+        "Rare": { "chance": 20, "reward": "NFT Koleksi / Item Langka" },
+        "UltraRare": { "chance": 10, "reward": "Saldo 1 USD / NFT Spesial" }
+      },
+      "actions": [
+        "select RandomReward",
+        "generate AutoMessage",
+        "pushTo Wallet",
+        "addTo Inventory",
+        "log Transaction"
+      ]
+    },
+    {
+      "name": "VIP Celebration",
+      "code": "GSF-BDAY-VIP",
+      "condition": "if user.role == 'VIP_VERIFIED'",
+      "description": "Mode perayaan ulang tahun khusus Room VIP.",
+      "actions": [
+        "activate BirthdayTheme",
+        "play Animation + Music",
+        "notify RoomVIP Members",
+        "enable CommunityGift",
+        "collect CommunityRewards",
+        "merge Rewards",
+        "assign Badge 'VIP_BDAY_STAR'",
+        "sendTo Wallet",
+        "logTo VIP_Celebration_Log"
+      ]
+    },
+    {
+      "name": "Gift Processor",
+      "description": "Proses pengiriman hadiah & update dashboard.",
+      "workflow": [
+        "Wallet.add(reward)",
+        "Inventory.update(reward)",
+        "Dashboard.addBadge('Happy Birthday')",
+        "EventLog.store('BirthdayRewardLog')"
+      ]
+    },
+    {
+      "name": "Notification Center",
+      "description": "Sistem notifikasi untuk user.",
+      "channels": ["dashboard", "email", "push_notification"],
+      "messageTemplate": "🎉 Selamat Ulang Tahun, {{username}}! Hadiah sudah dikirim ke wallet kamu 🎂"
+    },
+    {
+      "name": "Inventory Sync",
+      "description": "Sinkronisasi data hadiah ke dashboard user.",
+      "actions": [
+        "Dashboard.display(rewardItem)",
+        "Inventory.markAsNew(rewardItem)",
+        "update VisionAnalytics"
+      ]
+    },
+    {
+      "name": "Vision Core Integration",
+      "description": "Kirim data event ke sistem analitik GSF.",
+      "dataFlow": [
+        "Vision.log(eventName, userID, rewardType, rarity)",
+        "Vision.analyze(engagement, retention, login_frequency)"
+      ]
+    }
+  ],
+  "autoReset": {
+    "cycle": "yearly",
+    "action": "reset Birthday Status after 24h"
+  },
+  "adminControls": {
+    "enableEvent": true,
+    "manualBonus": true,
+    "monitorVIPCelebration": true
+  }
+}
+
+
+---
+
+⚡ Fitur utama JSON ini:
+
+Bisa langsung dibaca backend Node.js atau Python (tinggal import json).
+
+Semua logika udah modular → BirthdayEngine, GiftProcessor, NotificationCenter.
+
+Ada integrasi otomatis ke Vision Core biar data hadiah & aktivitas langsung terekam.
+---
