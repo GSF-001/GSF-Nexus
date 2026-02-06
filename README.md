@@ -4,8 +4,7 @@
 > A modular digital ecosystem designed to operate beyond traditional applications.
 
 ---
-
-## 🧠 What is GSF?
+ What is GSF?
 
 GSF is not a single product.
 
@@ -23,7 +22,7 @@ GSF is designed to grow from a small core into a global digital ecosystem.
 
 ---
 
-## ⚙️ Core Philosophy
+ Core Philosophy
 
 > “Apps can fail.  
 > Systems evolve.”
@@ -38,7 +37,7 @@ This repository represents the **foundation layer** of that vision.
 
 ---
 
-## 🧱 Repository Architecture
+ Repository Architecture
 
 apps/        → User-facing applications packages/    → Engines, AI logic, automation systems docs/        → Master documentation & system law scripts/     → Development & deployment utilities
 
@@ -49,7 +48,7 @@ No feature exists without structure.
 
 ---
 
-## 🧩 Main Components
+ Main Components
 
 ### 🔹 Core API
 The heart of the ecosystem.
@@ -68,7 +67,7 @@ apps/core-api
 
 ---
 
-### 🔹 City AI Framework
+🔹 City AI Framework
 A governance-inspired intelligence system.
 
 Simulates structured decision flow:
@@ -86,7 +85,7 @@ This module acts as the **brain layer** of GSF.
 
 ---
 
-### 🔹 Automation Layer
+🔹 Automation Layer
 Runs silently in the background.
 
 Includes:
@@ -101,7 +100,7 @@ packages/gsf-city-ai-auto
 
 ---
 
-### 🔹 Birthday Engine
+🔹 Birthday Engine
 Event-based system used for:
 - symbolic activation
 - rarity logic
@@ -114,7 +113,7 @@ packages/gsf-birthday-engine
 
 ---
 
-### 🔹 Disaster & Donation Autopilot
+🔹 Disaster & Donation Autopilot
 A standalone micro-system designed for:
 - emergency response simulation
 - donation routing
@@ -127,7 +126,7 @@ packages/gsf-disaster-autopilot
 
 ---
 
-## 📜 Documentation Law
+📜 Documentation Law
 
 All system logic must follow the master document:
 
@@ -143,7 +142,7 @@ No implementation should contradict this document.
 
 ---
 
-## 🚧 Project Status
+project Status
 
 **Phase:** Architecture Finalized  
 **Focus:** Structure, clarity, long-term scalability  
@@ -153,7 +152,7 @@ without compromising system integrity.
 
 ---
 
-## 🧠 Vision
+Vision
 
 GSF is not built to compete with existing platforms.
 
@@ -165,7 +164,7 @@ not noise.
 
 ---
 
-## 👤 Founder
+#Founder
 
 **MIKA GRB**  
 Founder & System Architect
@@ -175,7 +174,7 @@ Founder & System Architect
 
 ---
 
-## ⚠️ Note
+ Note
 
 This repository is intentionally structured.
 
