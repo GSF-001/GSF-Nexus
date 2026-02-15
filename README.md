@@ -1,19 +1,31 @@
-# GSF — Digita System
+# GSF MONOREPO
 
-> This repository documents a system designed to outlive its original implementation.
- 
-This repository contains early architectural concepts and experiments
-for the GSF (Global Sovereign Framework).
+## Structure
 
-GSF was designed as a modular digital system exploring ideas around
-governance, automation, and scalable digital infrastructure.
+apps/
+├── core-api/                 ← Backend API (wallet, QR, IB, subscription)
+├── web-frontend/             ← Frontend UI (Next.js / React)
+packages/
+├── gsf-city-ai/              ← AI governance brain
+├── gsf-city-ai-auto/         ← Cron + automation + monitoring
+├── gsf-birthday-engine/      ← Event engine
+├── gsf-disaster-autopilot/   ← National disaster autopilot
+docs/
+├── README.md                 ← Master framework documentation
 
-## Status
-Archived / Experimental  
-Not actively maintained.
+## Setup
+
+1. Clone repo
+2. `cd apps/core-api && npm install`
+3. `cp .env.example .env`
+4. Run backend: `npm run dev`
+5. Run frontend: `npm run dev` (web-frontend)
+6. Cron jobs in city-ai-auto run automatically
 
 ## Notes
-This repository represents a foundation-phase exploration.
-Some ideas may be incomplete or purely conceptual.
 
-— Mikatoshi 
+- All AI dispatches go via `/api/city-ai/dispatch`
+- QR access: `/api/qr-access/generate` & `/api/qr-access/validate`
+- Wallet top-up: `/api/wallet/topup`
+- Birthday events: `triggerBirthday(user)`
+- Disaster autopilot: placeholder modules for now
