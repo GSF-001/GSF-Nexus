@@ -1,97 +1,70 @@
-### GSF SYSTEM — Digital Sovereign Framework
+🌐 GSF nexus — Digital System Framework
 
-*Building autonomous, non-custodial systems that outlive their operators.*  
-No custody. No central control. No excuses. Just **signals, rules, and coordination logic**.
-
----
-
-### 🌐 Overview
-
-GSF is a **monorepo** for a decentralized digital ecosystem, combining:  
-
-- Wallets & subscription APIs  
-- QR access system  
-- AI governance & city dispatch  
-- Event engines (birthdays, disasters)  
-- Automation & monitoring  
-
-The system is designed for **scalability, modularity, and privacy-first operation**.
-
----
-
-### 📂 Structure
-
-```text
-apps/
-├── core-api/            wallet, QR, IB, subscription
-└── web-frontend/        Next.js / React
-
-packages/
-├── gsf-city-ai/         AI governance brain
-├── gsf-city-ai-auto/    Cron + automation + monitoring
-├── gsf-birthday-engine/ Event engine
-└── gsf-disaster-autopilot/ National disaster autopilot
-
-docs/
-└── README.md            Master framework documentation
+Autonomous, non-custodial ecosystem. Signals, rules, coordination logic.
 
 
 ---
 
-⚡ Quickstart
+Struktur Inti
 
-# 1. Clone repo
-git clone <repo-url>
+apps/core-api/ – Wallet, QR, Subscription, IB
 
-# 2. Backend setup
-cd apps/core-api
-npm install
-cp .env.example .env
-npm run dev
+apps/web-frontend/ – Next.js / React
 
-# 3. Frontend setup
-cd ../web-frontend
-npm install
-npm run dev
+packages/gsf-city-ai/ – AI governance brain
 
-# 4. Cron & automation
-# city-ai-auto runs automatically
+packages/gsf-city-ai-auto/ – Cron, automation, monitoring
+
+packages/gsf-birthday-engine/ – Event engine
+
+packages/gsf-disaster-autopilot/ – Disaster autopilot
+
 
 
 ---
 
-🔑 Notes & Endpoints
+Quickstart
 
-AI dispatch: /api/city-ai/dispatch
-
-QR access: /api/qr-access/generate & /api/qr-access/validate
-
-Wallet top-up: /api/wallet/topup
-
-Birthday events: triggerBirthday(user)
-
-Disaster autopilot: placeholder modules
+1. Clone repo: git clone <repo-url>
 
 
-> Secrets, keys, and sensitive configuration never pushed. .env handles all private credentials.
+2. Backend: masuk ke apps/core-api, install dependensi, copy .env, jalankan npm run dev
+
+
+3. Frontend: masuk ke apps/web-frontend, install dependensi, jalankan npm run dev
+
+
+4. gsf-city-ai-auto jalan otomatis untuk cron & monitoring
 
 
 
 
 ---
 
-🧩 Philosophy
+Highlights
 
-Autonomous: the system runs without central authority.
+AI Dispatch: /api/city-ai/dispatch
 
-Modular: plug-and-play engines, AI brains, and automation.
+QR Access: /api/qr-access/*
 
-Secure: all sensitive operations are non-custodial.
+Wallet: /api/wallet/topup
 
-Elegant: minimalistic code, maximum impact.
+Birthday Engine: triggerBirthday(user)
+
+Disaster Autopilot: auto-response modules
 
 
-> GSF is more than code. It's a digital sovereign ecosystem, scalable from single cities to national autopilot.
 
 ---
-_mikatoshi
+
+Filosofi
+
+Autonomous & modular
+
+Privacy-first, non-custodial
+
+Minimal code, maximal impact
+
+
+> Digital sovereign ecosystem, scalable dari kota sampai nasional
+
