@@ -4,19 +4,19 @@ Autonomous, non-custodial ecosystem. Signals, rules, coordination logic.
 
 📂 Struktur & Modul Utama
 
-Core API – Wallet, QR, Subscription, Auth
+- Core API – Wallet, QR, Subscription, Auth
 
-Web Frontend – Next.js / React
+- Web Frontend – Next.js / React
 
-City AI – AI governance brain
+- City AI – AI governance brain
 
-City AI Auto – Cron, automation, monitoring
+- City AI Auto – Cron, automation, monitoring
 
-Birthday Engine – Event & reward system
+- Birthday Engine – Event & reward system
 
-Disaster Autopilot – Crisis automation
+- Disaster Autopilot – Crisis automation
 
-Docs & Master README – Semua dokumentasi lengkap
+- Docs & Master README – Semua dokumentasi lengkap
 
 
 > Link ke Struktur Folder Inti:
