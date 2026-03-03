@@ -1,70 +1,40 @@
-🌐 GSF nexus — Digital System Framework
+🌐 GSF SYSTEM — Digital Sovereign Framework
 
 Autonomous, non-custodial ecosystem. Signals, rules, coordination logic.
 
+Struktur & Modul Utama
 
----
+Core API – Wallet, QR, Subscription
 
-Struktur Inti
+Web Frontend – Next.js / React
 
-apps/core-api/ – Wallet, QR, Subscription, IB
+City AI – AI governance
 
-apps/web-frontend/ – Next.js / React
+City AI Auto – Cron & monitoring
 
-packages/gsf-city-ai/ – AI governance brain
+Birthday Engine – Event & reward
 
-packages/gsf-city-ai-auto/ – Cron, automation, monitoring
+Disaster Autopilot – Crisis automation
 
-packages/gsf-birthday-engine/ – Event engine
+Docs – Master framework
 
-packages/gsf-disaster-autopilot/ – Disaster autopilot
-
-
-
----
 
 Quickstart
 
-1. Clone repo: git clone <repo-url>
+1. Clone repo: GSF-Nexus
 
 
-2. Backend: masuk ke apps/core-api, install dependensi, copy .env, jalankan npm run dev
+2. Backend: npm install → cp .env.example .env → npm run dev
 
 
-3. Frontend: masuk ke apps/web-frontend, install dependensi, jalankan npm run dev
+3. Frontend: npm install → npm run dev
 
 
-4. gsf-city-ai-auto jalan otomatis untuk cron & monitoring
+4. Cron & automation auto-run
 
 
-
-
----
-
-Highlights
-
-AI Dispatch: /api/city-ai/dispatch
-
-QR Access: /api/qr-access/*
-
-Wallet: /api/wallet/topup
-
-Birthday Engine: triggerBirthday(user)
-
-Disaster Autopilot: auto-response modules
-
-
-
----
 
 Filosofi
+Autonomous • Modular • Privacy-first • Minimal code, maximal impact
 
-Autonomous & modular
-
-Privacy-first, non-custodial
-
-Minimal code, maximal impact
-
-
-> Digital sovereign ecosystem, scalable dari kota sampai nasional
-
+> Operator: mikatoshi
