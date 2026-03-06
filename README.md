@@ -2,7 +2,7 @@
 
 Autonomous, non-custodial ecosystem. Signals, rules, coordination logic.
 
-📂 Struktur & Modul Utama
+📂 Struktur & Main Module
 
 Core API – Wallet, QR, Subscription, Auth: https://github.com/GSF-001/GSF-Nexus/tree/main/apps/core-api/%20src
 
@@ -14,7 +14,7 @@ Birthday Engine – Event & reward system: https://github.com/GSF-001/GSF-Nexus/
 
 Disaster Autopilot – Crisis automation: https://github.com/GSF-001/GSF-Nexus/tree/main/packages/gsf-disaster-autopilot
 
-Docs & Master README – Semua dokumentasi lengkap: https://github.com/GSF-001/GSF-Nexus/tree/main/docs
+Docs & Master README – All documentation complete: https://github.com/GSF-001/GSF-Nexus/tree/main/docs
 
 
 ⚡ Quickstart
